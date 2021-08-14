@@ -1,14 +1,20 @@
 from flask import Flask, views, request
 from flask_cors import CORS
+from flask_migrate import Migrate
 from exts import db
 # from flask.globals import request
 
 app = Flask(__name__)
 app.config.from_json("config.json")
 
+# 跨域
 cors = CORS()
 cors.init_app(app=app)
+
+# 数据库
 db.init_app(app=app)
+from api_demo.models import Book
+migrate = Migrate(app, db)
 
 # 基本函数方法
 @app.route("/",methods=["GET","POST"])
