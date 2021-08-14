@@ -1,5 +1,6 @@
 {
     "RUN_ENV": "dev",
     "NAMESPACE": "default",
-    "JWT_SECRET":"hard_to_guess_random_123"
+    "JWT_SECRET":"hard_to_guess_random_123",
+    "SQLALCHEMY_DATABASE_URI": "mysql://wr:123456@127.0.0.1:3306/web"
 }
