@@ -1,0 +1,5 @@
+{
+    "RUN_ENV": "dev",
+    "NAMESPACE": "default",
+    "JWT_SECRET":"hard_to_guess_random_123"
+}
