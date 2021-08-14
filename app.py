@@ -1,5 +1,6 @@
 from flask import Flask, views, request
 from flask_cors import CORS
+from exts import db
 # from flask.globals import request
 
 app = Flask(__name__)
@@ -7,6 +8,7 @@ app.config.from_json("config.json")
 
 cors = CORS()
 cors.init_app(app=app)
+db.init_app(app=app)
 
 # 基本函数方法
 @app.route("/",methods=["GET","POST"])
