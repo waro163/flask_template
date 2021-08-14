@@ -7,3 +7,4 @@ class Book(db.Model):
     publish_date = db.Column(db.Date())
     price = db.Column(db.Float)
     on_sale = db.Column(db.Boolean, default=True)
+    publisher = db.Column(db.String(64))
