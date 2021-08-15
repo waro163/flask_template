@@ -2,6 +2,7 @@ import click
 from flask import Flask, views, request
 from flask_cors import CORS
 from flask_migrate import Migrate
+# from sqlalchemy.ext.declarative import api
 from exts import db
 
 app = Flask(__name__)
@@ -59,7 +60,7 @@ app.add_url_rule("/hi",view_func=HelloViews.as_view('hi'))
 
 # 蓝图
 from api_demo import api_bp
-app.register_blueprint(api_bp)
+app.register_blueprint(api_bp, url_prefix="/api")
 
 if __name__ == "__main__":
     app.run()
