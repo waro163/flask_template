@@ -2,8 +2,8 @@ from flask import request, views
 from flask import json
 from flask.helpers import make_response
 from flask.json import jsonify
-from flask_sqlalchemy import Pagination
-from . import api_bp
+# from flask_sqlalchemy import Pagination
+# from . import api_bp
 from .pagination import BasePagination
 from .permission import is_authenticated
 from .models import Book
@@ -26,5 +26,5 @@ class LoginView(views.MethodView):
             return response
         return jsonify(message="bad reqeust"),400
 
-api_bp.add_url_rule("login",view_func=LoginView.as_view("login"))
+# api_bp.add_url_rule("login",view_func=LoginView.as_view("login"))
 
