@@ -2,15 +2,20 @@ from flask import request, views
 from flask import json
 from flask.helpers import make_response
 from flask.json import jsonify
+from flask_sqlalchemy import Pagination
 from . import api_bp
+from .pagination import BasePagination
 from .permission import is_authenticated
+from .models import Book
 
 class LoginView(views.MethodView):
 
-    decorators = [is_authenticated]
+    # decorators = [is_authenticated]
 
     def get(self):
-        return jsonify(message="welcome login")
+        pagination = BasePagination(Book.query)
+        return jsonify(pagination.to_json())
+        # return jsonify(message="welcome login")
 
     def post(self):
         name, passwd = request.json.get("name"), request.json.get("passwd")
@@ -22,3 +27,4 @@ class LoginView(views.MethodView):
         return jsonify(message="bad reqeust"),400
 
 api_bp.add_url_rule("login",view_func=LoginView.as_view("login"))
+
