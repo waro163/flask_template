@@ -1,8 +1,8 @@
+import click
 from flask import Flask, views, request
 from flask_cors import CORS
 from flask_migrate import Migrate
 from exts import db
-# from flask.globals import request
 
 app = Flask(__name__)
 app.config.from_json("config.json")
@@ -15,6 +15,25 @@ cors.init_app(app=app)
 db.init_app(app=app)
 from api_demo.models import Book
 migrate = Migrate(app, db)
+
+# 添加flask自定义命令
+# flask --help
+# flask faked --fake (第2个是函数名称，第3个是选项)
+@app.cli.command()
+@click.option("--fake", is_flag=True, help="create fake data in database")
+def faked(fake):
+    if fake:
+        click.confirm("create data for db,sure?", abort=True)
+        data=[]
+        from faker import Faker
+        fake = Faker()
+        for i in range(5):
+            data.append(Book(name=fake.name(),authors=fake.user_name(),publish_date=fake.date(),price=fake.pyint(15,150),on_sale=fake.boolean(),publisher=fake.street_name()))
+        db.session.add_all(data)
+        db.session.commit()
+        click.echo("all done")
+    else:
+        click.echo("good bye!")
 
 # 基本函数方法
 @app.route("/",methods=["GET","POST"])
