@@ -3,7 +3,7 @@ from flask import Flask, views, request
 from flask_cors import CORS
 from flask_migrate import Migrate
 # from sqlalchemy.ext.declarative import api
-from exts import db
+from exts import db,ma
 
 app = Flask(__name__)
 app.config.from_json("config.json")
@@ -16,6 +16,9 @@ cors.init_app(app=app)
 db.init_app(app=app)
 from api_demo.models import Book
 migrate = Migrate(app, db)
+
+# 序列器
+ma.init_app(app)
 
 # 添加flask自定义命令
 # flask --help
