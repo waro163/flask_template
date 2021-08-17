@@ -21,6 +21,7 @@ class LoginView(views.MethodView):
 
     def post(self):
         serializer = book_schema.load(request.json)
+        print(serializer)
         return book_schema.dump(serializer)
         # name, passwd = request.json.get("name"), request.json.get("passwd")
         # if name=="waro" and passwd == "123456":
