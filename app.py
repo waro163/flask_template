@@ -1,5 +1,5 @@
 import click
-from flask import Flask, views, request
+from flask import Flask, views, request, jsonify
 from flask_cors import CORS
 from flask_migrate import Migrate
 # from sqlalchemy.ext.declarative import api
@@ -52,14 +52,17 @@ def hello(name):
 
 # 类视图
 class HelloViews(views.MethodView):
-    def get(self):
-        return "hello view"
+    def get(self, *args, **kwargs):
+        return jsonify({"args":args,
+                        "kwargs":kwargs,
+                        "request.args":request.args
+                        })
 
     def post(self):
         print(request.json)
         return "hello post view"
 
-app.add_url_rule("/hi",view_func=HelloViews.as_view('hi'))
+app.add_url_rule("/hi/<string:name>",view_func=HelloViews.as_view('hi'))
 
 # 蓝图
 from api_demo import api_bp
